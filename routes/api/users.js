@@ -69,7 +69,7 @@ router.post("/login", (req, res) => {
     //checa contraseña
     bcrypt.compare(password, user.password).then(isMatch => {
       if (isMatch) {
-        const payload = { id: user.id, name: user.nombre };
+        const payload = { id: user.id, admin: user.admin, name: user.nombre };
         jwt.sign(
           payload,
           keys.secretOrKey,
@@ -89,7 +89,7 @@ router.post("/login", (req, res) => {
   });
 });
 
-//
+// VER SESION ACTIVA
 router.get(
   "/current",
   passport.authenticate("jwt", { session: false }),
@@ -97,9 +97,28 @@ router.get(
     res.json({
       id: req.user.id,
       nombre: req.user.nombre,
-      email: req.user.email
+      email: req.user.email,
+      admin: req.user.admin
     });
   }
 );
+
+//VALIDACION ADMIN O USER
+router.use((req, res, next) => {
+  if (!req.user.admin) {
+    return res.json({
+      success: false,
+      message: 'Admin access needed'
+    })
+  }
+  next();
+});
+
+// router.get('/dashboard', (req, res) => {
+//   return res.json({
+//     success: true,
+//     message: 'You Are and Admin'
+//   })
+// });
 
 module.exports = router;

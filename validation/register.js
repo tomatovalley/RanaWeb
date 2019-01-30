@@ -35,7 +35,7 @@ module.exports = function validateRegisterInput(data) {
   }
   //VALIDA EL LARGO DE LA CONTRASEÑA
   if (!Validator.isLength(data.password, { min: 6, max: 30 })) {
-    errors.password = "La contraseña debe contener entre 2 y 30 caracteres";
+    errors.password = "La contraseña debe contener entre 6 y 30 caracteres";
   }
   //VALIDA EL CAMPO DE CONTRASEÑA DE CONFIRMACION
   if (Validator.isEmpty(data.password2)) {
