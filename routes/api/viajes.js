@@ -54,13 +54,26 @@ router.delete("/:id", passport.authenticate("jwt", { session: false }), (req, re
         User.findOne({ user: req.user.id }).then(user => {
             //CHECAMOS SI TIENE PERMISOS DE ADMIN
             if (!req.user.admin) {
-                return res.status(401).json({ noAutorizado: "No eres autorizado para dar de baja viajes." });
+                return res.status(401).json({ user });
             }
 
             //BORRAMOS VIAJE
             viaje.remove().then(() => res.json({ viajeBorrado: "viaje borrado con exito" }));
         })
     }).catch(err => res.status(404).json({ viajonoencontrado: "no se encontro viaje" }));
+});
+
+//AGARRAR VIAJE
+router.post("/:id", passport.authenticate("jwt", { session: false }), (req, res) => {
+    Viaje.findById(req.params.id).then(viaje => {
+        const userid = req.user.id;
+        if (Viaje.status === "libre") {
+            Viaje.user = userid;
+            Viaje.status = "espera"
+            User.viaje = viaje;
+        }
+        return res.status(401).json({ viajeocupado: "este viaje esta ocupado" });
+    });
 });
 
 

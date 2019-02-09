@@ -30,6 +30,10 @@ const UserSchema = new Schema({
   telefono: {
     type: String,
     required: true
+  },
+  viajes: {
+    type: Array,
+    default: []
   }
 });
 module.exports = User = mongoose.model("users", UserSchema);
