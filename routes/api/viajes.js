@@ -66,15 +66,25 @@ router.delete("/:id", passport.authenticate("jwt", { session: false }), (req, re
 //AGARRAR VIAJE
 router.post("/:id", passport.authenticate("jwt", { session: false }), (req, res) => {
     Viaje.findById(req.params.id).then(viaje => {
-        const userid = req.user.id;
-        if (Viaje.status === "libre") {
-            Viaje.user = userid;
-            Viaje.status = "espera"
-            User.viaje = viaje;
-        }
-        return res.status(401).json({ viajeocupado: "este viaje esta ocupado" });
-    });
-});
 
+        User.findById(req.user.id).then(user => {
+            if (viaje.status === "libre") {
+                viaje.user = user.id;
+                viaje.status = "espera";
+                if (user.viajes) {
+                    user.viajes.push(viaje)
+                } else {
+                    user.viajes = [viaje]
+                }
+                User.findOneAndUpdate({ id: user.id }, { upsert: true }, { $push: { viajes: viaje } }).then(UserUp => {
+                    Viaje.updateOne(viaje).then(viajeUp => {
+                    });
+                });
+            }
+            return res.status(401).json({ user, viaje });
+
+        }).catch(err => res.status(404).json(err));
+    }).catch(err => res.status(404).json(err));
+});
 
 module.exports = router;
