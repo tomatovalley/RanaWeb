@@ -15,7 +15,6 @@ router.get("/registro", (req, res) => res.render("users/registro"));
 // REGISTRAR USUARIO NUEVO
 router.post("/registro", (req, res) => {
   const { errors, isValid } = validateRegisterInput(req.body);
-
   if (!isValid) {
     return res.status(400).json(errors);
   }
@@ -45,6 +44,7 @@ router.post("/registro", (req, res) => {
             .catch(err => console.log(err));
         });
       });
+      res.redirect("login");
     }
   });
 });
@@ -57,7 +57,7 @@ router.get("/login", (req, res) => {
 
 router.post("/login", (req, res) => {
   const { errors, isValid } = validateLoginInput(req.body);
-
+  console.log(req.body);
   if (!isValid) {
     return res.status(400).json(errors);
   }
@@ -86,7 +86,7 @@ router.post("/login", (req, res) => {
             });
           }
         );
-        res.render("users/index");
+        res.redirect("index");
       } else {
         errors.password = "Contraseña incorrecta";
         return res.status(400).json(errors);
@@ -95,6 +95,9 @@ router.post("/login", (req, res) => {
   });
 });
 
+router.get("/index", (req, res) => {
+  res.render("users/");
+});
 //ENCUESTA
 router.post("/encuesta", passport.authenticate("jwt", { session: false }), (req, res) => {
 
