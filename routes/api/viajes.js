@@ -10,37 +10,45 @@ const validarViajesInput = require("../../validation/viajes");
 router.get("/test", (req, res) => res.json({ msg: "Viajes" }));
 
 //CREAR VIAJE
-router.post("/", passport.authenticate("jwt", { session: false }), (req, res) => {
-    const { errors, isValid } = validarViajesInput(req.body);
+router.post("/registro", passport.authenticate("jwt", { session: false }), (req, res) => {
+    User.findOne({ user: req.user.id }).then(user => {
+        //CHECAMOS SI TIENE PERMISOS DE ADMIN
+        if (!req.user.admin) {
+            return res.status(401).json({ denegado: "no tienes permisos" });
+        }
 
-    if (!isValid) {
-        return res.status(400).json(errors);
-    }
+        const { errors, isValid } = validarViajesInput(req.body);
 
-    const newViaje = new Viaje({
-        tipoDestino: req.body.tipoDestino,
-        lugarPartida: req.body.lugarPartida,
-        lugarDestino: req.body.lugarDestino,
-        fechaPartida: req.body.fechaPartida,
-        fechaRegreso: req.body.fechaRegreso,
-        tipoHospedaje: req.body.tipoHospedaje,
-        claseHospedaje: req.body.claseHospedaje,
-        comidaHospedaje: req.body.comidaHospedaje,
-        checkIn: req.body.checkIn,
-        checkOut: req.body.checkOut,
-        tipoTransporte: req.body.tipoTransporte,
-        lineaTransporte: req.body.lineaTransporte
+        if (!isValid) {
+            return res.status(400).json(errors);
+        }
+
+        //CREAMOS EL NUEVO VIAJE
+        const newViaje = new Viaje({
+            precio: req.body.precio,
+            tipoDestino: req.body.tipoDestino,
+            lugarPartida: req.body.lugarPartida,
+            lugarDestino: req.body.lugarDestino,
+            fechaPartida: req.body.fechaPartida,
+            fechaRegreso: req.body.fechaRegreso,
+            tipoHospedaje: req.body.tipoHospedaje,
+            claseHospedaje: req.body.claseHospedaje,
+            comidaHospedaje: req.body.comidaHospedaje,
+            checkIn: req.body.checkIn,
+            checkOut: req.body.checkOut,
+            tipoTransporte: req.body.tipoTransporte,
+            lineaTransporte: req.body.lineaTransporte
+        });
+
+        //GUARDAMOS EL NUEVO VIAJE
+        newViaje.save().then(viaje => res.json(viaje));
+
     });
-
-    newViaje.save().then(viaje => res.json(viaje));
 });
 
 //OBTENER TODOS LOS VIAJES
 router.get("/", (req, res) => {
-    //SOLO VIAJES LIBRES
-    // Viaje.find({ status: "libre" }).then(viajes => res.json(viajes)).catch(err => res.status(404).json({ viajesNoEncontrados: "No encontramos viajes libres" }));
-
-    Viaje.find().sort({ fechaPartida: -1 }).then(viajes => res.json(viajes)).catch(err => res.status(404).json({ viajesNoEncontrados: "No encontramos viajes." }));
+    Viaje.find({ status: "libre" }).sort({ fechaPartida: -1 }).then(viajes => res.json(viajes)).catch(err => res.status(404).json({ viajesNoEncontrados: "No encontramos viajes." }));
 });
 
 //OBTENER VIAJE POR ID
@@ -54,11 +62,18 @@ router.delete("/:id", passport.authenticate("jwt", { session: false }), (req, re
         User.findOne({ user: req.user.id }).then(user => {
             //CHECAMOS SI TIENE PERMISOS DE ADMIN
             if (!req.user.admin) {
-                return res.status(401).json({ user });
+                return res.status(401).json({ denegado: "no tienes permisos" });
             }
+
+            //QUITAMOS EL VIAJE DEL USUARIO
+            const userdiviaje = viaje.user;
+            User.findById(userdiviaje).then(userViaje => {
+                User.updateOne(userViaje, { $pull: { viajes: { idViaje: viaje.id } } }).then(() => { });
+            }).catch(err => res.status(404).json({ viajonoencontrado: "no se encontro viaje" }));;
 
             //BORRAMOS VIAJE
             viaje.remove().then(() => res.json({ viajeBorrado: "viaje borrado con exito" }));
+            return res.status(401).json(viaje);
         })
     }).catch(err => res.status(404).json({ viajonoencontrado: "no se encontro viaje" }));
 });
@@ -66,23 +81,35 @@ router.delete("/:id", passport.authenticate("jwt", { session: false }), (req, re
 //AGARRAR VIAJE
 router.post("/:id", passport.authenticate("jwt", { session: false }), (req, res) => {
     Viaje.findById(req.params.id).then(viaje => {
-
         User.findById(req.user.id).then(user => {
-            if (viaje.status === "libre") {
-                viaje.user = user.id;
-                viaje.status = "espera";
-                if (user.viajes) {
-                    user.viajes.push(viaje)
-                } else {
-                    user.viajes = [viaje]
-                }
-                User.findOneAndUpdate({ id: user.id }, { upsert: true }, { $push: { viajes: viaje } }).then(UserUp => {
-                    Viaje.updateOne(viaje).then(viajeUp => {
-                    });
-                });
-            }
-            return res.status(401).json({ user, viaje });
+            const viajeUser = {}
+            viajeUser.idViaje = viaje.id;
+            viajeUser.status = viaje.status;
+            viajeUser.tipoDestino = viaje.tipoDestino;
+            viajeUser.lugarPartida = viaje.lugarPartida;
+            viajeUser.lugarDestino = viaje.lugarDestino;
+            viajeUser.fechaPartida = viaje.fechaPartida;
+            viajeUser.fechaRegreso = viaje.fechaRegreso;
+            viajeUser.tipoHospedaje = viaje.tipoHospedaje;
+            viajeUser.claseHospedaje = viaje.claseHospedaje;
+            viajeUser.comidaHospedaje = viaje.comidaHospedaje;
+            viajeUser.checkIn = viaje.checkIn;
+            viajeUser.checkOut = viaje.checkOut;
+            viajeUser.tipoTransporte = viaje.tipoTransporte;
+            viajeUser.lineaTransporte = viaje.lineaTransporte;
+            viajeUser.precio = viaje.precio;
 
+            //VERIFICAMOS DISPONIBILIDAD DE VIAJE
+            if (viaje.status != "libre") {
+                return res.status(401).json({ ocupado: "viaje ocupado" });
+            }
+
+            //ACTUALIZAMOS CAMPOS DE VIAJE Y USUARIOS
+            User.updateOne(user, { $push: { "viajes": [viajeUser] } }).then(UserUp => {
+                Viaje.updateOne(viaje, { $set: { user: user.id, status: "espera" } }).then(viajeUp => { });
+            });
+
+            return res.status(401).json(viaje);
         }).catch(err => res.status(404).json(err));
     }).catch(err => res.status(404).json(err));
 });

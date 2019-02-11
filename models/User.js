@@ -34,6 +34,10 @@ const UserSchema = new Schema({
   viajes: {
     type: Array,
     default: []
+  },
+  encuesta: {
+    type: Array,
+    default: []
   }
 });
 module.exports = User = mongoose.model("users", UserSchema);

@@ -16,11 +16,15 @@ module.exports = function validateViajesInput(data) {
     data.checkOut = !isEmpty(data.checkOut) ? data.checkOut : "";
     data.tipoTransporte = !isEmpty(data.tipoTransporte) ? data.tipoTransporte : "";
     data.linea = !isEmpty(data.linea) ? data.linea : "";
+    data.precio = !isEmpty(data.precio) ? data.precio : "";
 
 
     //VALIDA EL CAMPO DE LA CONTRASEÑA
     if (Validator.isEmpty(data.tipoDestino)) {
         errors.tipoDestino = "El campo de tipo del desino es requerido.";
+    }
+    if (Validator.isEmpty(data.precio)) {
+        errors.precio = "El campo del precio es requerido.";
     }
     if (Validator.isEmpty(data.lugarPartida)) {
         errors.lugarPartida = "El campo del lugar de partida es requerido.";

@@ -7,9 +7,12 @@ const ViajeSchema = new Schema({
         required: false,
         default: "libre"
     },
+    precio: {
+        type: Number,
+        required: true
+    },
     user: {
-        type: Schema.Types.ObjectId,
-        ref: 'users'
+        type: String
     },
     tipoDestino: {
         type: String,

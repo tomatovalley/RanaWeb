@@ -31,8 +31,7 @@ router.post("/register", (req, res) => {
         telefono: req.body.telefono,
         password: req.body.password,
         fechaNacimiento: req.body.fechaNacimiento,
-        sexo: req.body.sexo,
-        viajes: []
+        sexo: req.body.sexo
       });
 
       //ENCRIPTA CONTRASEÑA Y LA GUARDA EN MONGODB
