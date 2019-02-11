@@ -10,10 +10,10 @@ const passport = require("passport");
 const validateRegisterInput = require("../../validation/register");
 const validateLoginInput = require("../../validation/login");
 
-router.get("/test", (req, res) => res.json({ msg: "Users Works" }));
+router.get("/registro", (req, res) => res.render("users/registro"));
 
 // REGISTRAR USUARIO NUEVO
-router.post("/register", (req, res) => {
+router.post("/registro", (req, res) => {
   const { errors, isValid } = validateRegisterInput(req.body);
 
   if (!isValid) {
@@ -50,6 +50,11 @@ router.post("/register", (req, res) => {
 });
 
 // LOGIN
+
+router.get("/login", (req, res) => {
+  res.render("users/login");
+});
+
 router.post("/login", (req, res) => {
   const { errors, isValid } = validateLoginInput(req.body);
 
@@ -81,6 +86,7 @@ router.post("/login", (req, res) => {
             });
           }
         );
+        res.render("users/index");
       } else {
         errors.password = "Contraseña incorrecta";
         return res.status(400).json(errors);
@@ -89,6 +95,28 @@ router.post("/login", (req, res) => {
   });
 });
 
+//ENCUESTA
+router.post("/encuesta", passport.authenticate("jwt", { session: false }), (req, res) => {
+
+  User.findById(req.user.id).then(user => {
+    const encuesta = {};
+    encuesta.tipoRana = req.body.tipoRana;
+    encuesta.tipoDestino = req.body.tipoDestino;
+    encuesta.fechaEstimada = req.body.fechaEstimada;
+    encuesta.transporte = req.body.transporte;
+
+    if (user.encuesta.length === 0) {
+      //AGREGAMOS PRIMERA RESPUESTA DE ENCUESTA
+      User.updateOne(user, { $push: { "encuesta": [encuesta] } }).then(() => { });
+    } else {
+      //ACTUALIZAMOS ENCUESTA
+      User.updateOne(user, { $set: { "encuesta": { tipoRana: encuesta.tipoRana, tipoDestino: encuesta.tipoDestino, fechaEstimada: encuesta.fechaEstimada, transporte: encuesta.transporte } } }).then(() => { });
+    }
+    console.log(user.encuesta.length)
+    res.status(401).json(encuesta);
+  });
+
+});
 // VER SESION ACTIVA
 router.get("/current", passport.authenticate("jwt", { session: false }),
   (req, res) => {
@@ -102,15 +130,15 @@ router.get("/current", passport.authenticate("jwt", { session: false }),
 );
 
 //VALIDACION ADMIN O USER
-router.use((req, res, next) => {
-  if (!req.user.admin) {
-    return res.json({
-      success: false,
-      message: 'Admin access needed'
-    })
-  }
-  next();
-});
+// router.use((req, res, next) => {
+//   if (!req.user.admin) {
+//     return res.json({
+//       success: false,
+//       message: 'Admin access needed'
+//     })
+//   }
+//   next();
+// });
 
 // router.get('/dashboard', (req, res) => {
 //   return res.json({

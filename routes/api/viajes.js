@@ -7,7 +7,7 @@ const Viaje = require("../../models/Viaje");
 const User = require("../../models/User");
 const validarViajesInput = require("../../validation/viajes");
 
-router.get("/test", (req, res) => res.json({ msg: "Viajes" }));
+router.get("/registro", (req, res) => res.render("viajes/registro"));
 
 //CREAR VIAJE
 router.post("/registro", passport.authenticate("jwt", { session: false }), (req, res) => {
@@ -42,7 +42,7 @@ router.post("/registro", passport.authenticate("jwt", { session: false }), (req,
 
         //GUARDAMOS EL NUEVO VIAJE
         newViaje.save().then(viaje => res.json(viaje));
-
+        res.render("viajes/registro");
     });
 });
 
