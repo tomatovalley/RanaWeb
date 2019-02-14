@@ -44,7 +44,6 @@ router.post("/registro", (req, res) => {
             .catch(err => console.log(err));
         });
       });
-      res.redirect("login");
     }
   });
 });

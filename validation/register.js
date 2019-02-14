@@ -10,8 +10,10 @@ module.exports = function validateRegisterInput(data) {
     ? data.fechaNacimiento
     : "";
   data.sexo = !isEmpty(data.sexo) ? data.sexo : "";
+  data.telefono = !isEmpty(data.telefono) ? data.telefono : "";
   data.password = !isEmpty(data.password) ? data.password : "";
   data.password2 = !isEmpty(data.password2) ? data.password2 : "";
+
 
   //VALIDA EL LARGO DEL NOMBRE
   if (!Validator.isLength(data.nombre, { min: 2, max: 30 })) {
@@ -28,6 +30,14 @@ module.exports = function validateRegisterInput(data) {
   //VALIDA QUE SEA UN CORREO
   if (!Validator.isEmail(data.email)) {
     errors.email = "El correo no es valido";
+  }
+  //VALIDA EL LARGO DEL TELEGONO
+  if (!Validator.isLength(data.telefono, { min: 10, max: 10 })) {
+    errors.telefono = "El número telefónico debe ser de 10 digitos.";
+  }
+  //VALIDA EL CAMPO DEL TELEGONO
+  if (Validator.isEmpty(data.telefono)) {
+    errors.telefono = "El campo del telefono es requerido.";
   }
   //VALIDA EL CAMPO DE LA CONTRASEÑA
   if (Validator.isEmpty(data.password)) {
