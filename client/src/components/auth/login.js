@@ -1,5 +1,10 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import classnames from 'classnames';
+import { connect } from 'react-redux';
+
+import { loginUser } from '../../actions/authActions';
 
 
 
@@ -8,19 +13,30 @@ class Login extends Component {
         super();
         this.state = {
             email: "",
-            password: ""
+            password: "",
+            errors: {}
         };
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
     }
 
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.auth.isAuthenticated) {
+            this.props.history.push('/dashboard');
+        }
+
+        if (nextProps.errors) {
+            this.setState({ errors: nextProps.errors });
+        }
+    }
+
     onSubmit(e) {
         e.preventDefault();
-        const user = {
-            nombre: this.state.nombre,
+        const userData = {
+            email: this.state.email,
             password: this.state.password
         }
-        console.log(user);
+        this.props.loginUser(userData);
     }
 
     onChange(e) {
@@ -28,6 +44,7 @@ class Login extends Component {
     }
 
     render() {
+        const { errors } = this.state;
         return (
             <div>
                 <section className="form-login">
@@ -41,13 +58,29 @@ class Login extends Component {
                                         <div className="input-group-prepend">
                                             <div className="input-group-text"><i className="fas fa-user"></i></div>
                                         </div>
-                                        <input type="email" className="form-control" id="InputCorreo" placeholder="Correo" name="email" value={this.state.email} onChange={this.onChange} />
+                                        <input
+                                            type="email"
+                                            className={classnames("form-control", { "is-invalid": errors.email })}
+                                            id="InputCorreo"
+                                            placeholder="Correo"
+                                            name="email"
+                                            value={this.state.email}
+                                            onChange={this.onChange} />
+                                        {errors.email && (<div className="invalid-feedback">{errors.email}</div>)}
                                     </div>
                                     <div className="input-group">
                                         <div className="input-group-prepend">
                                             <div className="input-group-text"><i className="fas fa-unlock-alt"></i></div>
                                         </div>
-                                        <input type="password" className="form-control" id="InputContraseña" placeholder="Contraseña" name="password" value={this.state.password} onChange={this.onChange} />
+                                        <input
+                                            type="password"
+                                            className={classnames("form-control", { "is-invalid": errors.password })}
+                                            id="InputContraseña"
+                                            placeholder="Contraseña"
+                                            name="password"
+                                            value={this.state.password}
+                                            onChange={this.onChange} />
+                                        {errors.password && (<div className="invalid-feedback">{errors.password}</div>)}
                                     </div>
                                     <button type="submit" className="btn btn-primary w-100">Ingresar</button>
                                     <Link to="#" className="text-right mt-3 align-self-end">Olvidaste la contraseña?</Link>
@@ -103,4 +136,16 @@ class Login extends Component {
         )
     }
 }
-export default Login;
+
+Login.propTypes = {
+    loginUser: PropTypes.func.isRequired,
+    auth: PropTypes.object.isRequired,
+    errors: PropTypes.object.isRequired
+}
+
+const mapStateToProps = state => ({
+    auth: state.auth,
+    errors: state.errors
+});
+
+export default connect(mapStateToProps, { loginUser })(Login);

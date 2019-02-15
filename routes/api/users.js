@@ -49,11 +49,6 @@ router.post("/registro", (req, res) => {
 });
 
 // LOGIN
-
-router.get("/login", (req, res) => {
-  res.render("users/login");
-});
-
 router.post("/login", (req, res) => {
   const { errors, isValid } = validateLoginInput(req.body);
   console.log(req.body);
@@ -85,7 +80,6 @@ router.post("/login", (req, res) => {
             });
           }
         );
-        res.redirect("index");
       } else {
         errors.password = "Contraseña incorrecta";
         return res.status(400).json(errors);
