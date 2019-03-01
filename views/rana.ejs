@@ -1,0 +1,141 @@
+<!-- <h1 class="mt-4">Dashboard</h1>
+<p class="lead mb-3">Welcome <%= user.nombre %></p>
+<a href="/users/logout" class="btn btn-secondary">Logout</a> -->
+
+<body class="dashboard">
+    <div class="d-flex" id="wrapper">
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+
+            <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+                <a href="" class="navbar-brand"><img src="/vendor/custom/images/rana_aventurera.png" width="50"
+                        alt=""></a>
+
+                <button class="navbar-toggler" type="button" data-toggle="collapse"
+                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+                        <li class="nav-item d-flex flex-column justify-content-center">
+                            <p class="mb-0">Bienvenido(a) <%= user.nombre %></p>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="encuesta">Busca tu viaje</a>
+                                <a class="dropdown-item" href="ranaProfile">Perfil</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="/users/logout">Salir</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <div class="container-fluid">
+                <!-- STATUS SITIO -->
+                <div class="row pt-3">
+
+                    <!-- <% if (viajesEncu.length) { %><ul>
+                        <% viajesEncu.forEach((viaje) => { %>
+                        <li><%= viaje.precio %></li>
+                        <%}) %>
+                    </ul><% } %> -->
+
+                    <% if(viajesEncu.length) { %>
+                    <% viajesEncu.forEach((viaje) => { %>
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-info shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                            <%= viaje.lugarDestino %></div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">Tipo Destino:
+                                            <%= viaje.tipoDestino %></div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">Salida:
+                                            <%= viaje.fechaSalida %></div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">Regreso:
+                                            <%= viaje.fechaRegreso %></div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">Hospedaje:
+                                            <%= viaje.tipoHospedaje %></div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">Transporte:
+                                            <%= viaje.tipoTransporte %></div>
+                                        <div class="btn-group" role="group" aria-label="Basic example">
+                                            <a href="tomarViaje/<%= viaje._id %>" class="btn btn-secondary">Seleccionar
+                                                Viaje</a>
+                                        </div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-plane fa-2x"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <%}) %>
+                    <% } %>
+                </div>
+
+                <!-- VIAJES DISPONIBLES -->
+                <div class="row py-5">
+                    <div class="col-sm-12">
+                        <h4>Mis viajes</h4>
+                        <table class="table">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th scope="col">Precio</th>
+                                    <th scope="col">Lugar de destino</th>
+                                    <th scope="col">Lugar de salida</th>
+                                    <th scope="col">Tipo de destino</th>
+                                    <th scope="col">Fecha de partida</th>
+                                    <th scope="col">Fecha de regreso</th>
+                                    <th scope="col">Hospedaje</th>
+                                    <th scope="col">Clase hospedaje</th>
+                                    <th scope="col">Alimentos</th>
+                                    <th scope="col">Transporte</th>
+                                    <th scope="col">Línea</th>
+                                    <th scope="col">Acción</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% if (viajesUser.length) { %>
+                                <% viajesUser.forEach((viaje) => { %>
+                                <tr>
+
+                                    <td><%= viaje.precio %></td>
+                                    <td><%= viaje.lugarDestino %></td>
+                                    <td><%= viaje.lugarPartida %></td>
+                                    <td><%= viaje.tipoDestino %></td>
+                                    <td><%= viaje.fechaPartida %></td>
+                                    <td><%= viaje.fechaRegreso %></td>
+                                    <td><%= viaje.tipoHospedaje %></td>
+                                    <td><%= viaje.claseHospedaje %></td>
+                                    <td><%= viaje.comidaHospedaje %></td>
+                                    <td><%= viaje.tipoTransporte %></td>
+                                    <td><%= viaje.lineaTransporte %></td>
+                                    <td class="btn-group" role="group">
+                                        <a href="bajaViaje/<%= viaje.idViaje %>" class="btn btn-secondary">Cancelar
+                                            Viaje</a>
+                                    </td>
+
+                                </tr>
+                                <%}) %>
+                                <% } %>
+                            </tbody>
+
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+
+    </div>

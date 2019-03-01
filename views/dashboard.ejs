@@ -1,0 +1,211 @@
+<!-- <h1 class="mt-4">Dashboard</h1>
+<p class="lead mb-3">Welcome <%= user.nombre %></p>
+<a href="/users/logout" class="btn btn-secondary">Logout</a> -->
+
+<body class="dashboard">
+    <div class="d-flex" id="wrapper">
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+
+            <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+                <a href="" class="navbar-brand"><img src="/vendor/custom/images/rana_aventurera.png" width="50"
+                        alt=""></a>
+
+                <button class="navbar-toggler" type="button" data-toggle="collapse"
+                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+                        <li class="nav-item d-flex flex-column justify-content-center">
+                            <p class="mb-0">Bienvenido(a) <%= user.nombre %></p>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="altaViaje">Subir viaje</a>
+                                <a class="dropdown-item" href="adminProfile">Perfil</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="/users/logout">Salir</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <div class="container-fluid">
+                <!-- STATUS SITIO -->
+                <div class="row pt-3">
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-warning shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Viajes
+                                            esperando autorización.</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800"><%= countEspera %></div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-plane fa-2x"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-info shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Viajes
+                                            disponibles</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800"><%= countLibres %></div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-plane fa-2x"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-success shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Viajes
+                                            ocupados</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800"> <%= countOcupados%></div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-plane-departure fa-2x"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="card border-left-primary shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Viajes
+                                            completados</div>
+                                        <div class="h5 mb-0 font-weight-bold text-gray-800">0</div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fas fa-plane-arrival fa-2x"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- VIAJES EN ESPERA Y OCUPADOS -->
+                <div class="row py-5">
+                    <div class="col-sm-6">
+                        <h4>Viajes ocupados</h4>
+                        <table class="table">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th scope="col">Destino</th>
+                                    <th scope="col">Rana</th>
+                                    <th scope="col">Cel. Rana</th>
+                                    <th scope="col">Correo Rana</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-sm-6">
+                        <h4>Viajes sin autorización</h4>
+                        <table class="table">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th scope="col">Destino</th>
+                                    <th scope="col">Rana</th>
+                                    <th scope="col">Cel. Rana</th>
+                                    <th scope="col">Correo Rana</th>
+                                    <th scope="col">Acción</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% for(var i = 0; i < viajesEspera.length; i++ ) {%>
+                                <tr>
+                                    <td><%= viajesEspera[i].tipoDestino %></td>
+                                    <td><%= viajesEspera[i].userNombre %></td>
+                                    <td><%= viajesEspera[i].userTelefono %></td>
+                                    <td><%= viajesEspera[i].userCorreo %></td>
+                                    <td class="btn-group" role="group">
+                                        <a href="borrar/<%= viajes[i]._id %>" type="button"
+                                            class="btn btn-info">Autorizar</a>
+                                        <a href="borrar/<%= viajes[i]._id %>" type="button"
+                                            class="btn btn-danger">Cancelar</a>
+                                    </td>
+                                </tr>
+                                <%}%>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- VIAJES DISPONIBLES -->
+                <div class="row py-5">
+                    <div class="col-sm-12">
+                        <h4>Viajes disponibles</h4>
+                        <table class="table">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th scope="col">Precio</th>
+                                    <th scope="col">Lugar de destino</th>
+                                    <th scope="col">Lugar de salida</th>
+                                    <th scope="col">Tipo de destino</th>
+                                    <th scope="col">Fecha de partida</th>
+                                    <th scope="col">Fecha de regreso</th>
+                                    <th scope="col">Hospedaje</th>
+                                    <th scope="col">Clase hospedaje</th>
+                                    <th scope="col">Alimentos</th>
+                                    <th scope="col">Transporte</th>
+                                    <th scope="col">Línea</th>
+                                    <th scope="col">Acción</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                            <tbody>
+                                <% for(var i = 0; i < viajes.length; i++ ) {%>
+                                <tr>
+                                    <td><%= viajes[i].precio %></td>
+                                    <td><%= viajes[i].lugarDestino %></td>
+                                    <td><%= viajes[i].lugarPartida %></td>
+                                    <td><%= viajes[i].tipoDestino %></td>
+                                    <td><%= viajes[i].fechaPartida %></td>
+                                    <td><%= viajes[i].fechaRegreso %></td>
+                                    <td><%= viajes[i].tipoHospedaje %></td>
+                                    <td><%= viajes[i].claseHospedaje %></td>
+                                    <td><%= viajes[i].comidaHospedaje %></td>
+                                    <td><%= viajes[i].tipoTransporte %></td>
+                                    <td><%= viajes[i].lineaTransporte %></td>
+                                    <td class="btn-group" role="group">
+                                        <a href="borrar/<%= viajes[i]._id %>" type="button"
+                                            class="btn btn-danger">Eliminar</a>
+                                    </td>
+                                </tr>
+                                <%}%>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+
+    </div>

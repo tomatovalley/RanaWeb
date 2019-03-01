@@ -3,7 +3,9 @@
 body {
   font-family: "Poppins", sans-serif;
 }
-
+html{
+  scroll-behavior: smooth;
+}
 //      NAVBAR CSS      //
 .scrolled {
   background: #fff !important;
@@ -22,6 +24,15 @@ body {
   }
   .nav-link {
     color: #fff;
+  }
+  .ingresar{
+    background: #f2e309;
+    border-radius: 5px;
+  }
+  .registrar{
+    background: #c2d730;
+    margin-left: 0.5rem;
+    border-radius: 5px;
   }
 }
 .navbar.scrolled {
@@ -460,4 +471,247 @@ body {
             }
         }
     }
+}
+
+//    FORM ALTA VIAJE     //
+.form-altaViajes{
+  .gen{
+      form {
+          border-radius: 15px;
+          background: #c1d730dc;
+          max-width: 350px;
+          padding: 15px;
+          box-shadow: 10px 10px 5px -3px rgba(0,0,0,0.75);
+          h2{
+              font-size: 26px;
+              font-weight: 300;
+          }
+          .form-group{
+              border-radius: 5px;
+              margin-bottom: 10px;
+              input{
+                  border: none;
+              }
+              .form-control:focus{
+                  box-shadow: none!important;
+              }
+              .form-control{
+                  box-shadow: none;
+              }
+              .input-group-prepend{
+                  border: none;
+                  .input-group-text{
+                      background: transparent;
+                      border: none;
+                  }
+              }
+          }
+          button{
+              border-radius: 50px;
+              background: #fff;
+              border-color: transparent;
+              color: #000;
+          }
+          a{
+              font-size: 14px;
+              color: #fff;
+              width: 175px;
+              font-style: italic;
+          }
+      }
+      .separador{
+          width: 350px;
+          height: 1px;
+          background: #fff;
+      }
+      .inv{
+          font-weight: 300;
+          font-size: 14px;
+          color: #fff;
+          a{
+              font-weight: 600;
+              color: #fff;
+          }
+      }
+  }
+}
+
+//    FORM ACT ADMIN     //
+.form-actAdmin{
+  .gen{
+      form {
+          border-radius: 15px;
+          background: #c1d730dc;
+          max-width: 350px;
+          padding: 15px;
+          box-shadow: 10px 10px 5px -3px rgba(0,0,0,0.75);
+          h2{
+              font-size: 26px;
+              font-weight: 300;
+          }
+          .form-group{
+              border-radius: 5px;
+              margin-bottom: 10px;
+              input{
+                  border: none;
+              }
+              .form-control:focus{
+                  box-shadow: none!important;
+              }
+              .form-control{
+                  box-shadow: none;
+              }
+              .input-group-prepend{
+                  border: none;
+                  .input-group-text{
+                      background: transparent;
+                      border: none;
+                  }
+              }
+          }
+          button{
+              border-radius: 50px;
+              background: #fff;
+              border-color: transparent;
+              color: #000;
+          }
+          a{
+              font-size: 14px;
+              color: #fff;
+              width: 175px;
+              font-style: italic;
+          }
+      }
+      .separador{
+          width: 350px;
+          height: 1px;
+          background: #fff;
+      }
+      .inv{
+          font-weight: 300;
+          font-size: 14px;
+          color: #fff;
+          a{
+              font-weight: 600;
+              color: #fff;
+          }
+      }
+  }
+}
+
+//    FORM ENCUESTA     //
+.form-encuesta{
+  .gen{
+      form {
+          border-radius: 15px;
+          background: #c1d730dc;
+          max-width: 350px;
+          padding: 15px;
+          box-shadow: 10px 10px 5px -3px rgba(0,0,0,0.75);
+          h2{
+              font-size: 26px;
+              font-weight: 300;
+          }
+          .form-group{
+              border-radius: 5px;
+              margin-bottom: 10px;
+              input{
+                  border: none;
+              }
+              .form-control:focus{
+                  box-shadow: none!important;
+              }
+              .form-control{
+                  box-shadow: none;
+              }
+              .input-group-prepend{
+                  border: none;
+                  .input-group-text{
+                      background: transparent;
+                      border: none;
+                  }
+              }
+          }
+          button{
+              border-radius: 50px;
+              background: #fff;
+              border-color: transparent;
+              color: #000;
+          }
+          a{
+              font-size: 14px;
+              color: #fff;
+              width: 175px;
+              font-style: italic;
+          }
+      }
+      .separador{
+          width: 350px;
+          height: 1px;
+          background: #fff;
+      }
+      .inv{
+          font-weight: 300;
+          font-size: 14px;
+          color: #fff;
+          a{
+              font-weight: 600;
+              color: #fff;
+          }
+      }
+  }
+}
+
+
+// DASHBOARD
+body.dashboard {
+  overflow-x: hidden;
+}
+#sidebar-wrapper {
+  min-height: 100vh;
+  margin-left: -15rem;
+  -webkit-transition: margin .25s ease-out;
+  -moz-transition: margin .25s ease-out;
+  -o-transition: margin .25s ease-out;
+  transition: margin .25s ease-out;
+  background: #122f3b !important;
+  .list-group-item{
+    background: transparent!important;
+    color: #fff;
+  }
+}
+#sidebar-wrapper .sidebar-heading {
+  padding: 0.875rem 1.25rem;
+  font-size: 1.2rem;
+}
+#sidebar-wrapper .list-group {
+  width: 15rem;
+}
+#page-content-wrapper {
+  min-width: 100vw;
+  .navbar{
+    background: #c1d730e6 !important;
+    #menu-toggle{
+      background: #fde500!important;
+      border-color: transparent;
+      color: #272727!important;
+    }
+  }
+}
+#wrapper.toggled #sidebar-wrapper {
+  margin-left: 0;
+}
+@media (min-width: 768px) {
+  #sidebar-wrapper {
+    margin-left: 0;
+  }
+
+  #page-content-wrapper {
+    min-width: 0;
+    width: 100%;
+  }
+
+  #wrapper.toggled #sidebar-wrapper {
+    margin-left: -15rem;
+  }
 }

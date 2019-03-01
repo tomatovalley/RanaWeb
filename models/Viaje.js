@@ -14,6 +14,15 @@ const ViajeSchema = new Schema({
     user: {
         type: String
     },
+    userNombre: {
+        type: String
+    },
+    userCorreo: {
+        type: String
+    },
+    userTelefono: {
+        type: String
+    },
     tipoDestino: {
         type: String,
         required: true
@@ -43,7 +52,7 @@ const ViajeSchema = new Schema({
         required: true
     },
     comidaHospedaje: {
-        type: Boolean,
+        type: String,
         required: true
     },
     checkIn: {

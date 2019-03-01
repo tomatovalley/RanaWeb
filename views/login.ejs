@@ -1,0 +1,105 @@
+<!-- <div class="row mt-5">
+  <div class="col-md-6 m-auto">
+    <div class="card card-body">
+      <h1 class="text-center mb-3"><i class="fas fa-sign-in-alt"></i>  Login</h1>
+      <form action="/users/login" method="POST">
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            class="form-control"
+            placeholder="Enter Email"
+          />
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            class="form-control"
+            placeholder="Enter Password"
+          />
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Login</button>
+      </form>
+      <p class="lead mt-4">
+        No Account? <a href="/users/register">Register</a>
+      </p>
+    </div>
+  </div>
+</div> -->
+
+<section class="form-login">
+  <div class="container gen d-flex flex-column align-items-center justify-content-center">
+    <% include ./partials/messages %>
+    <form action="/users/login" method="POST" class="wow fadeIn d-flex flex-column">
+      <img src="/vendor/custom/images/rana_aventurera.png" width="120" class="img-fluid align-self-center">
+      <div class="container">
+        <h2 class="text-center">Ingresar</h2>
+        <div class="inputs-cont d-flex flex-column">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <div class="input-group-text"><i class="fas fa-user"></i></div>
+            </div>
+            <input type="email" name="email" class="form-control" id="InputCorreo" placeholder="Correo" />
+          </div>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <div class="input-group-text"><i class="fas fa-unlock-alt"></i></div>
+            </div>
+            <input type="password" name="password" class="form-control" id="InputContraseña" placeholder="Contraseña" />
+          </div>
+          <button type="submit" class="btn btn-primary w-100">Ingresar</button>
+          <a href="#" class="text-right mt-3 align-self-end">Olvidaste la contraseña?</a>
+        </div>
+      </div>
+    </form>
+    <div class="separador my-4"></div>
+    <p class="inv">Aún no tienes una cuenta? <a href="/users/register">REGISTRATE AQUÍ</a></p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<section class="footer pt-5">
+  <div class="container">
+    <div class="d-flex flex-column align-items-center">
+      <div class="redes-footer d-flex">
+        <div class="redes facebook d-flex justify-content-center align-items-center">
+          <a href="#"><i class="fab fa-facebook-f fa-1x"></i></a>
+        </div>
+        <div class="redes twitter d-flex justify-content-center align-items-center">
+          <a href="#"><i class="fab fa-twitter fa-1x"></i></a>
+        </div>
+        <div class="redes instagram d-flex justify-content-center align-items-center">
+          <a href="#"><i class="fab fa-instagram fa-1x"></i></a>
+        </div>
+      </div>
+      <div class="lista d-flex mt-3">
+        <ul class="list-inline m-0">
+          <li class="list-inline-item"><a href="#">INICIO</a></li>
+          <li class="list-inline-item"><a href="#">NOSOTROS</a></li>
+          <li class="list-inline-item"><a href="#">SERVICIOS</a></li>
+          <li class="list-inline-item"><a href="#">REGISTRO</a></li>
+          <li class="list-inline-item"><a href="#">CONTACTO</a></li>
+        </ul>
+      </div>
+      <div class="contacto my-3">
+        <h3>Contactanos en:</h3>
+        <a href="mailto:contacto@rana.mx" target="_top">
+          <i class="far fa-envelope-open mr-3"></i> contacto@rana.mx</a>
+      </div>
+    </div>
+  </div>
+  <div class="derechos py-3">
+    <div class="container text-center">
+      <h2>© Rana | Todos los derechos reservados.</h2>
+      <p class="m-0">
+        <a href="#"> Aviso de privacidad.</a> |
+        <a href="#">Términos y condiciones.</a>
+      </p>
+    </div>
+  </div>
+</section>

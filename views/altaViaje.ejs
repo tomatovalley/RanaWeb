@@ -1,0 +1,153 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+  <a href="" class="navbar-brand"><img src="/vendor/custom/images/rana_aventurera.png" width="50" alt=""></a>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+      <li class="nav-item d-flex flex-column justify-content-center">
+        <p class="mb-0">Bienvenido(a) <%= user.nombre %></p>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+        </a>
+        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="altaViaje">Subir viaje</a>
+          <a class="dropdown-item" href="adminProfile">Perfil</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="/users/logout">Salir</a>
+        </div>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<section class="form-altaViajes py-5">
+  <div class="container gen d-flex flex-column align-items-center justify-content-center">
+    <% include ./partials/messages %>
+    <form action="altaViaje" method="POST" class="wow fadeIn d-flex flex-column">
+      <img src="/vendor/custom/images/rana_fresa.png" width="120" class="img-fluid align-self-center">
+      <div class="container">
+        <h2 class="text-center">Crea una nueva experiencia!</h2>
+        <div class="inputs-cont form-row">
+          <div class="form-group">
+            <label for="inputPrecio">Precio</label>
+            <input type="text" name="precio" class="form-control" id="inputPrecio" placeholder="Precio"
+              value="<%= typeof precio != 'undefined' ? precio : '' %>" />
+          </div>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <label class="input-group-text" for="inputTipoDestino">Tipo destino</label>
+            </div>
+            <select class="custom-select" name="tipoDestino" id="inputTipoDestino">
+              <option value="ciudad">Ciudad</option>
+              <option value="playa">Playa</option>
+              <option value="bosque">Bosque</option>
+              <option value="pueblo magico">Pueblo mágico</option>
+              <option value="lugar cultural">Lugar cultural</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="inputDestino">Lugar de destino</label>
+            <input type="tel" name="lugarDestino" class="form-control" id="inputDestino" placeholder="Lugar de destino"
+              value="<%= typeof lugarDestino != 'undefined' ? lugarDestino : '' %>" />
+          </div>
+          <div class="form-group">
+            <label for="inputPartida">Lugar de partida</label>
+            <input type="tel" name="lugarPartida" class="form-control" id="inputPartida" placeholder="Lugar de partida"
+              value="<%= typeof lugarPartida != 'undefined' ? lugarPartida : '' %>" />
+          </div>
+          <div class="form-group">
+            <label for="inputaFechaPartida">Fecha de partida</label>
+            <input type="date" name="fechaPartida" class="form-control" id="inputaFechaPartida"
+              value="<%= typeof fechaPartida != 'undefined' ? fechaPartida : '' %>" />
+          </div>
+          <div class="form-group">
+            <label for="inputaFechaRegreso">Fecha de regreso</label>
+            <input type="date" name="fechaRegreso" class="form-control" id="inputaFechaRegreso"
+              value="<%= typeof fechaRegreso != 'undefined' ? fechaRegreso : '' %>" />
+          </div>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <label class="input-group-text" for="inputGroupSelect01">Hospedaje</label>
+            </div>
+            <select class="custom-select" name="tipoHospedaje" id="inputTipoHospedaje">
+              <option value="hotel">Hotel</option>
+              <option value="hostal">Hostal</option>
+              <option value="airbnb">Airbnb</option>
+            </select>
+          </div>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <label class="input-group-text" for="inputGroupSelect01">Clase hospedaje</label>
+            </div>
+            <select class="custom-select" name="claseHospedaje" id="inputGroupSelect01">
+              <option value="alta">Alta</option>
+              <option value="media">Baja</option>
+              <option value="baja">Media</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="radioHombre">Comida Incluida</label>
+            <div class="row ml-1">
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="comidaHospedaje" id="radioHombre" value="no-incluida"
+                  checked>
+                <label class="form-check-label" for="radioHombre">No incluida</label>
+              </div>
+              <div class="form-check ml-5">
+                <input class="form-check-input" type="radio" name="comidaHospedaje" id="radioMujer" value="incluida">
+                <label class="form-check-label" for="radioMujer">Incluida</label>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="inputCheckIn">Check In</label>
+            <input type="date" name="checkIn" class="form-control" id="inputCheckIn"
+              value="<%= typeof checkIn != 'undefined' ? checkIn : '' %>" />
+          </div>
+          <div class="form-group">
+            <label for="inputCheckOut">Check Out</label>
+            <input type="date" name="checkOut" class="form-control" id="inputCheckOut"
+              value="<%= typeof checkOut != 'undefined' ? checkOut : '' %>" />
+          </div>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <label class="input-group-text" for="inputGroupSelect01">Transporte</label>
+            </div>
+            <select class="custom-select" name="tipoTransporte" id="inputGroupSelect01">
+              <option value="tren">Tren</option>
+              <option value="camion">Camión</option>
+              <option value="avion">Avión</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="inputLineaTransporte">Línea transporte</label>
+            <input type="text" name="lineaTransporte" class="form-control" id="inputLineaTransporte"
+              placeholder="Ej. Tufesa" value="<%= typeof lineaTransporte != 'undefined' ? lineaTransporte : '' %>" />
+          </div>
+          <button type="submit" class="btn btn-primary w-100">Registrar</button>
+        </div>
+      </div>
+    </form>
+    <div class="separador my-4"></div>
+    <p class="inv">Ya tienes una cuenta? <a href="/users/login">INGRESA AQUÍ</a></p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<section class="footer pt-5">
+  <div class="derechos py-3">
+    <div class="container text-center">
+      <h2>© Rana | Todos los derechos reservados.</h2>
+      <p class="m-0">
+        <a href="#"> Aviso de privacidad.</a> |
+        <a href="#">Términos y condiciones.</a>
+      </p>
+    </div>
+  </div>
+</section>

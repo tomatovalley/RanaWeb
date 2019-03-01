@@ -1,0 +1,101 @@
+<section class="form-registro py-5">
+  <div class="container gen d-flex flex-column align-items-center justify-content-center">
+    <% include ./partials/messages %>
+    <form action="/users/register" method="POST" class="wow fadeIn d-flex flex-column">
+      <img src="/vendor/custom/images/rana_aventurera.png" width="120" class="img-fluid align-self-center">
+      <div class="container">
+        <h2 class="text-center">Registate gratis!</h2>
+        <div class="inputs-cont form-row">
+          <div class="form-group">
+            <label for="inputNombre">Nombre Completo</label>
+            <input type="text" name="nombre" class="form-control" id="InputNombre" placeholder="Nombre"
+              value="<%= typeof nombre != 'undefined' ? nombre : '' %>" />
+          </div>
+          <div class="form-group">
+            <label for="inputEmail4">Correo</label>
+            <input type="email" name="email" class="form-control" id="inputCorreo" placeholder="example@example.com"
+              value="<%= typeof email != 'undefined' ? email : '' %>">
+          </div>
+          <div class="form-group">
+            <label for="inputTelefono">Telefono</label>
+            <input type="tel" name="telefono" class="form-control" id="inputTelefono" placeholder="+(12) 123-123-123"
+              value="<%= typeof telefono != 'undefined' ? telefono : '' %>" />
+          </div>
+          <div class="form-group">
+            <label for="radioHombre">Sexo</label>
+            <div class="row ml-1">
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="sexo" id="radioHombre" value="hombre" checked>
+                <label class="form-check-label" for="radioHombre">Hombre</label>
+              </div>
+              <div class="form-check ml-5">
+                <input class="form-check-input" type="radio" name="sexo" id="radioMujer" value="mujer">
+                <label class="form-check-label" for="radioMujer">Mujer</label>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="inputaFecha">Fecha de Nacimiento</label>
+            <input type="date" name="fechaNacimiento" class="form-control" id="inputaFecha"
+              value="<%= typeof fechaNacimiento != 'undefined' ? fechaNacimiento : '' %>" />
+          </div>
+          <div class="form-group">
+            <label for="inputContraseña">Contraseña</label>
+            <input type="password" name="password" class="form-control" id="InputContraseña" placeholder="Contraseña"
+              value="<%= typeof password != 'undefined' ? password : '' %>" />
+          </div>
+          <div class="form-group">
+            <label for="inputContraseña">Confirmar contraseña</label>
+            <input type="password" name="password2" class="form-control" id="InputConfirmacion" placeholder="Contraseña"
+              value="<%= typeof password2 != 'undefined' ? password2 : '' %>" />
+          </div>
+          <button type="submit" class="btn btn-primary w-100">Registrar</button>
+        </div>
+      </div>
+    </form>
+    <div class="separador my-4"></div>
+    <p class="inv">Ya tienes una cuenta? <a href="/users/login">INGRESA AQUÍ</a></p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<section class="footer pt-5">
+  <div class="container">
+    <div class="d-flex flex-column align-items-center">
+      <div class="redes-footer d-flex">
+        <div class="redes facebook d-flex justify-content-center align-items-center">
+          <a href="#"><i class="fab fa-facebook-f fa-1x"></i></a>
+        </div>
+        <div class="redes twitter d-flex justify-content-center align-items-center">
+          <a href="#"><i class="fab fa-twitter fa-1x"></i></a>
+        </div>
+        <div class="redes instagram d-flex justify-content-center align-items-center">
+          <a href="#"><i class="fab fa-instagram fa-1x"></i></a>
+        </div>
+      </div>
+      <div class="lista d-flex mt-3">
+        <ul class="list-inline m-0">
+          <li class="list-inline-item"><a href="#">INICIO</a></li>
+          <li class="list-inline-item"><a href="#">NOSOTROS</a></li>
+          <li class="list-inline-item"><a href="#">SERVICIOS</a></li>
+          <li class="list-inline-item"><a href="#">REGISTRO</a></li>
+          <li class="list-inline-item"><a href="#">CONTACTO</a></li>
+        </ul>
+      </div>
+      <div class="contacto my-3">
+        <h3>Contactanos en:</h3>
+        <a href="mailto:contacto@rana.mx" target="_top">
+          <i class="far fa-envelope-open mr-3"></i> contacto@rana.mx</a>
+      </div>
+    </div>
+  </div>
+  <div class="derechos py-3">
+    <div class="container text-center">
+      <h2>© Rana | Todos los derechos reservados.</h2>
+      <p class="m-0">
+        <a href="#"> Aviso de privacidad.</a> |
+        <a href="#">Términos y condiciones.</a>
+      </p>
+    </div>
+  </div>
+</section>

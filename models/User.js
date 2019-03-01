@@ -1,7 +1,6 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-//Crear Schema
 const UserSchema = new Schema({
   nombre: {
     type: String,
@@ -38,6 +37,11 @@ const UserSchema = new Schema({
   encuesta: {
     type: Array,
     default: []
+  },
+  viajesEncuesta: {
+    type: Array,
+    default: []
   }
 });
+
 module.exports = User = mongoose.model("users", UserSchema);

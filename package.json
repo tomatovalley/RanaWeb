@@ -1,33 +1,27 @@
 {
-  "name": "rana-back",
-  "version": "1.0.0",
+  "name": "Rana",
+  "version": "2.0.0",
   "description": "Plataforma de viajes",
-  "main": "server.js",
+  "main": "app.js",
   "scripts": {
-    "client-install": "npm install --prefix client",
-    "start": "node server.js",
-    "server": "nodemon server.js",
-    "client": "npm start --prefix client",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "start": "node app.js",
+    "dev": "nodemon app.js"
   },
+  "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
-    "body-parser": "^1.18.3",
-    "concurrently": "^4.1.0",
-    "create-react-app": "^2.1.3",
+    "connect-flash": "^0.1.1",
+    "ejs": "^2.6.1",
     "express": "^4.16.4",
-    "express-handlebars": "^3.0.0",
-    "jsonwebtoken": "^8.4.0",
-    "mongoose": "^5.4.4",
+    "express-ejs-layouts": "^2.5.0",
+    "express-session": "^1.15.6",
+    "mongoose": "^5.4.1",
     "passport": "^0.4.0",
-    "passport-jwt": "^4.0.0",
-    "validator": "^10.11.0"
+    "passport-local": "^1.0.0"
   },
   "devDependencies": {
-    "css-loader": "^2.1.0",
-    "nodemon": "^1.18.9",
-    "style-loader": "^0.23.1"
+    "nodemon": "^1.18.9"
   }
 }
