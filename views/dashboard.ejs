@@ -120,6 +120,14 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                <% for(var i = 0; i < viajesOcupados.length; i++ ) {%>
+                                <tr>
+                                    <td><%= viajesOcupados[i].tipoDestino %></td>
+                                    <td><%= viajesOcupados[i].userNombre %></td>
+                                    <td><%= viajesOcupados[i].userTelefono %></td>
+                                    <td><%= viajesOcupados[i].userCorreo %></td>
+                                </tr>
+                                <%}%>
                             </tbody>
                         </table>
                     </div>
@@ -143,10 +151,8 @@
                                     <td><%= viajesEspera[i].userTelefono %></td>
                                     <td><%= viajesEspera[i].userCorreo %></td>
                                     <td class="btn-group" role="group">
-                                        <a href="borrar/<%= viajes[i]._id %>" type="button"
-                                            class="btn btn-info">Autorizar</a>
-                                        <a href="borrar/<%= viajes[i]._id %>" type="button"
-                                            class="btn btn-danger">Cancelar</a>
+                                        <a href="borrar/" type="button" class="btn btn-info">Autorizar</a>
+                                        <a href="borrar/" type="button" class="btn btn-danger">Cancelar</a>
                                     </td>
                                 </tr>
                                 <%}%>
