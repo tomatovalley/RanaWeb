@@ -219,7 +219,12 @@ router.get('/tomarViaje/:id', ensureAuthenticated, (req, res) => {
       // const objIdUser = mongoose.Types.ObjectId(user.id);
       // const objIdViaje = mongoose.Types.ObjectId(viaje.id);
       // User.update({ '_id': objIdUser }, { $pull: { "viajesEncuesta": { '_id': objIdViaje } } });
-      // User.update({ '_id': user.id }, { $pull: { "viajesEncuesta": { '_id': viaje.id } } });
+      // User.updateOne({ '_id': user.id }, { $pull: { "viajesEncuesta": { '_id': viaje.id } } }, function (err, data) {
+      //   if (err) {
+      //     return res.status(500).json({ 'error': 'error in deleting address' });
+      //   }
+      //   res.json(data);
+      // });
 
 
       //ACTUALIZAMOS CAMPOS DE VIAJE Y USUARIOS
